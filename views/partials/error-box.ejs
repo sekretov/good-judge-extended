@@ -1,0 +1,11 @@
+<% if (session.errors && session.errors.length > 0) { %>
+    <section class="error-box">
+        <ul>
+            <% for (const error of session.errors) { %>
+                <li><%= error %></li>
+            <% } %>
+        </ul>
+    </section>
+    <% session.errors = []; %>
+<% } %>
+
