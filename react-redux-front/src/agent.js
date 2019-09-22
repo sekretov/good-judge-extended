@@ -5,6 +5,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'https://conduit.productionready.io/api';
 const API_ROOT2 = `http://35.228.104.2:8085`;
+const API_ROOT3 = `http://35.228.104.2:8080`;
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -35,7 +36,9 @@ const requests2 = {
   put: (url, body) =>
     superagent.put(`${API_ROOT2}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
-    superagent.post(`${API_ROOT2}${url}`, body).use(tokenPlugin).set('Accept', 'application/json').then(responseBody)
+    superagent.post(`${API_ROOT2}${url}`, body).use(tokenPlugin).set('Accept', 'application/json').then(responseBody),
+  post3: (url, body) =>
+    superagent.post(`${API_ROOT3}${url}`, body).set('Content-Type', 'application/x-www-form-urlencoded').then(responseBody)
 };
 
 const Auth = {
@@ -80,7 +83,9 @@ const Comments = {
   delete: (slug, commentId) =>
     requests.del(`/articles/${slug}/comments/${commentId}`),
   forArticle: id =>
-    requests2.get(`/entry/${id}/comments`)
+    requests2.get(`/entry/${id}/comments`),
+  create1: (id, submission, submission_id, submit) =>
+    requests2.post3(`/submit`, {id, submission_id, submission, submit}),
 };
 
 const Profile = {
@@ -99,3 +104,5 @@ export default {
   Profile,
   setToken: _token => { token = _token; }
 };
+
+

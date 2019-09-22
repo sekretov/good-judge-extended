@@ -18,7 +18,7 @@ export default (state = {}, action) => {
     case ADD_COMMENT:
       return {
         ...state,
-        article: action.payload[0].article,
+        //article: action.payload[0].article,
         //articleID: action.payload ? action.payload.article.id : '',
         commentErrors: action.error ? action.payload.errors : null,
         comments: action.error ?
